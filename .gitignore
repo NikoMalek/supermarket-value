@@ -1,0 +1,5 @@
+# Archivos y carpetas de pyvenv
+pyvenv.cfg
+Include/*
+Lib*
+Scripts/*
