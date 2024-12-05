@@ -6,6 +6,7 @@ from webdriver_manager.firefox import GeckoDriverManager
 from bs4 import BeautifulSoup
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -21,6 +22,7 @@ def get_driver():
     chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3")
     # Inicializar el driver en modo headless
     return webdriver.Chrome(options=chrome_options)
+
 
 @app.route('/producto', methods=['POST'])
 def producto():
@@ -64,4 +66,5 @@ def producto():
         return jsonify({"message": "Error"})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
