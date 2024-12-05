@@ -23,6 +23,10 @@ def get_driver():
     # Inicializar el driver en modo headless
     return webdriver.Chrome(options=chrome_options)
 
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
+
 
 @app.route('/producto', methods=['POST'])
 def producto():
@@ -66,5 +70,4 @@ def producto():
         return jsonify({"message": "Error"})
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(debug=True)
