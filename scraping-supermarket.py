@@ -45,9 +45,9 @@ def producto():
         print (html)
         
         # Extraer los productos con Selenium
-        products = driver.find_elements(By.CLASS_NAME, "product-card")
-        print (f"Found {len(products)} products with Selenium")
-        driver.quit()
+        # products = driver.find_elements(By.CLASS_NAME, "product-card")
+        # print (f"Found {len(products)} products with Selenium")
+        
 
         # Extraer los productos con BeautifulSoup
         soup = BeautifulSoup(html, "html.parser")
@@ -63,11 +63,12 @@ def producto():
             price = product.find("span", class_="prices-main-price").text
             productos.append(f"{name} {price}")
             print(name, price)
-            
+        driver.quit()
         return jsonify(productos)
     except Exception as e:
         print(e)
         return jsonify({"message": "Error"})
-
+# Iniciar la aplicación de Flask en el puerto 5000 o el que se especifique en la variable de entorno PORT
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
